@@ -57,3 +57,23 @@ button { padding:8px 12px; margin-right:8px; border-radius:6px; border:0; backgr
 /* Results styling */
 .results { margin-top: 12px; }
 .result-item { background:#f2f4f7; padding:8px; border-radius:6px; margin-bottom:6px; }
+
+/* Aguardando... discreto */
+.aguardando {
+  color: #888;
+  font-style: italic;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+/* "Mostrar" discreto */
+.mostrar {
+  color: #4A90E2;
+  font-weight: 600;
+}
+
+/* Animação leve */
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
