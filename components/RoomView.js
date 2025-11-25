@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ref, set, onValue, update } from "firebase/database";
+import { ref, set, onValue, update, onDisconnect } from "firebase/database";
 import { getDB } from "../lib/firebaseClient";
 
 const OPT = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36];
@@ -7,35 +7,42 @@ const OPT = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36];
 export default function RoomView({ roomId, userName }) {
   const [part, setPart] = useState({});
   const [selected, setSelected] = useState(null);
-  const [revealed, setRevealed] = useState(false);
+  const [roomName, setRoomName] = useState("");
 
   useEffect(() => {
     const db = getDB();
 
-    // garante que o participante exista
-    set(
-      ref(db, `salas/${roomId}/participantes/${userName}`),
-      { escolha: null, revelado: false }
-    );
+    // Nome da sala
+    const salaRef = ref(db, `salas/${roomId}/nome`);
+    onValue(salaRef, snap => {
+      setRoomName(snap.val() || "Sala sem nome");
+    });
 
+    // Caminho do participante
+    const userRef = ref(db, `salas/${roomId}/participantes/${userName}`);
+
+    // Criar participante ao entrar
+    set(userRef, { escolha: null, revelado: false });
+
+    // 🔥 Remove o usuário automaticamente ao fechar o navegador
+    onDisconnect(userRef).remove();
+
+    // Participantes
     const roomRef = ref(db, `salas/${roomId}/participantes`);
 
     const unsub = onValue(roomRef, snap => {
       const val = snap.val() || {};
       setPart(val);
 
-      // se minha escolha já estiver no db, sincroniza o botão escolhido
-      if (val[userName] && val[userName].escolha !== null) {
+      if (val[userName] && typeof val[userName].escolha === "number") {
         setSelected(val[userName].escolha);
       }
-
-      // NÃO definir revealed automaticamente!
-      // Só muda quando clicar explicitamente no botão Revelar.
     });
 
     return () => unsub();
   }, [roomId, userName]);
 
+  // Selecionar voto
   function choose(v) {
     const db = getDB();
     setSelected(v);
@@ -45,22 +52,29 @@ export default function RoomView({ roomId, userName }) {
     );
   }
 
+  // Revelar para todos
   function revealAll() {
     const db = getDB();
-    const data = part || {};
-
-    Object.keys(data).forEach(p => {
+    Object.keys(part).forEach(p => {
       update(ref(db, `salas/${roomId}/participantes/${p}`), { revelado: true });
     });
-
-    setRevealed(true);
   }
 
+  // Ocultar para todos
+  function hideAll() {
+    const db = getDB();
+    Object.keys(part).forEach(p => {
+      update(
+        ref(db, `salas/${roomId}/participantes/${p}`),
+        { revelado: false }
+      );
+    });
+  }
+
+  // Limpar todos os votos
   function clearAll() {
     const db = getDB();
-    const data = part || {};
-
-    Object.keys(data).forEach(p => {
+    Object.keys(part).forEach(p => {
       update(
         ref(db, `salas/${roomId}/participantes/${p}`),
         { escolha: null, revelado: false }
@@ -68,12 +82,14 @@ export default function RoomView({ roomId, userName }) {
     });
 
     setSelected(null);
-    setRevealed(false);
   }
 
   return (
     <div className="card">
-      <h2 style={{ marginBottom: 8 }}>Sala: {roomId}</h2>
+      <h2 style={{ marginBottom: 8 }}>
+        Sala: <strong>{roomName}</strong>
+      </h2>
+
       <p>Você: <strong>{userName}</strong></p>
 
       {/* BOTÕES DE HORA */}
@@ -98,10 +114,25 @@ export default function RoomView({ roomId, userName }) {
         ))}
       </div>
 
-      {/* BOTÕES REVELAR / LIMPAR */}
+      {/* BOTÕES */}
       <div style={{ marginTop: 12, display: "flex", gap: 12 }}>
         <button className="reveal-btn" onClick={revealAll}>
           Mostrar escolhas
+        </button>
+
+        <button
+          onClick={hideAll}
+          style={{
+            backgroundColor: "#0a74da",
+            color: "white",
+            padding: "10px 16px",
+            borderRadius: "8px",
+            border: "none",
+            cursor: "pointer",
+            whiteSpace: "nowrap"
+          }}
+        >
+          Ocultar escolhas
         </button>
 
         <button className="clear-btn" onClick={clearAll}>
@@ -118,49 +149,41 @@ export default function RoomView({ roomId, userName }) {
         )}
 
         {Object.entries(part).map(([n, i]) => {
-          let show = "—";
+          let show;
 
-          if (i) {
-            if (i.revelado) {
-              // Revelado → todos veem a hora
-              show = i.escolha ? i.escolha + "h" : "—";
-            } else {
-              // Ainda NÃO revelado
-              if (n === userName) {
-                // Para mim → vejo minha própria escolha
-                show = i.escolha ? i.escolha + "h" : "—";
-              } else {
-                // Para outros membros
-                if (i.escolha === null) {
-                  // Ainda não votou → aguardando discreto
-                  show = (
-                    <span
-                      style={{
-                        opacity: 0.6,
-                        fontStyle: "italic",
-                        animation: "pulse 1.5s infinite",
-                        display: "inline-block"
-                      }}
-                    >
-                      ⏳ aguardando...
-                    </span>
-                  );
-                } else {
-                  // Já votou → mas está oculto
-                  show = (
-                    <span
-                      style={{
-                        cursor: "default",
-                        opacity: 0.8,
-                        fontWeight: "bold"
-                      }}
-                    >
-                      ⏳ aguardando..
-                    </span>
-                  );
-                }
-              }
-            }
+          // Nunca votou
+          if (i.escolha === null || i.escolha === undefined) {
+            show = (
+              <span
+                style={{
+                  opacity: 0.6,
+                  fontStyle: "italic",
+                  animation: "pulse 1.5s infinite",
+                  display: "inline-block"
+                }}
+              >
+                ⏳ aguardando...
+              </span>
+            );
+
+          // Revelado → mostrar corretamente a hora
+          } else if (i.revelado === true) {
+            show = `${i.escolha}h`;
+
+          // Escolheu, mas está oculto
+          } else {
+            show = (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontWeight: "bold"
+                }}
+              >
+                👁️ revelar
+              </span>
+            );
           }
 
           return (
@@ -171,13 +194,15 @@ export default function RoomView({ roomId, userName }) {
                 borderBottom: "1px solid #eee"
               }}
             >
-              {n}: <strong>{show}</strong>
+              {n}:{" "}
+              <strong style={{ display: "inline-flex", alignItems: "center" }}>
+                {show}
+              </strong>
             </div>
           );
         })}
       </div>
 
-      {/* Animação CSS */}
       <style jsx>{`
         @keyframes pulse {
           0% { opacity: 0.4; }

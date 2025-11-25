@@ -1,8 +1,8 @@
 {
-  "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/api/clear-members": "pages/api/clear-members.js",
   "/delete-rooms": "pages/delete-rooms.js",
-  "/api/delete-rooms": "pages/api/delete-rooms.js",
-  "/": "pages/index.js"
+  "/api/delete-rooms": "pages/api/delete-rooms.js"
 }
