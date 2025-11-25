@@ -1,32 +1,107 @@
 // pages/delete-rooms.js
-
-import React, { useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
-import DeleteRoomForm from '../components/DeleteRoomForm';
-import { initFirebase } from '../lib/firebaseClient';
+import { useState, useEffect } from "react";
+import { getDB } from "../lib/firebaseClient";
+import { ref, onValue } from "firebase/database";
+import Sidebar from "../components/Sidebar";
 
 export default function DeleteRoomsPage() {
-    // Inicializa o Firebase ao carregar esta página, se ainda não estiver inicializado
-    useEffect(() => { initFirebase(); }, []);
+  const [rooms, setRooms] = useState({});
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-    return (
-        <div style={{ display: 'flex' }}>
-            {/* 1. Menu Lateral */}
-            <Sidebar />
+  useEffect(() => {
+    const db = getDB(); // 🔥 Agora NUNCA é null
 
-            {/* 2. Conteúdo Principal */}
-            <main style={{ flexGrow: 1, padding: '20px' }}>
-                <h1>🗑️ Gerenciamento de Salas</h1>
-                <p>Use o formulário abaixo para apagar salas permanentemente. **Cuidado, esta ação é irreversível.**</p>
-                
-                {/* 3. Formulário de Exclusão (que criamos antes) */}
-                <DeleteRoomForm />
+    const roomsRef = ref(db, "salas");
 
-                <div style={{ marginTop: '40px', padding: '15px', border: '1px dashed #f00', backgroundColor: '#fee' }}>
-                    <h3>Comando de Exclusão em Massa</h3>
-                    <p>Para apagar **TODAS** as salas do banco de dados, digite **<code style={{fontWeight: 'bold'}}>***</code>** no campo acima e clique em "Apagar".</p>
-                </div>
-            </main>
+    const unsubscribe = onValue(roomsRef, (snap) => {
+      setRooms(snap.val() || {});
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const deleteRoom = async (roomId) => {
+    const res = await fetch("/api/delete-rooms", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomId, password }),
+    });
+
+    const data = await res.json();
+    setMessage(data.message);
+  };
+
+  const clearMembers = async (roomId) => {
+    const res = await fetch("/api/clear-members", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomId, password }),
+    });
+
+    const data = await res.json();
+    setMessage(data.message);
+  };
+
+  return (
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+
+      <div style={{ padding: 20, width: "100%" }}>
+        <h1>Apagar Salas</h1>
+
+        <div style={{ marginBottom: 20 }}>
+          <label>
+            Senha administrativa:<br />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ padding: 8, width: 300 }}
+              required
+            />
+          </label>
         </div>
-    );
+
+        <h2>Salas existentes</h2>
+
+        {Object.keys(rooms).length === 0 && <p>Nenhuma sala criada.</p>}
+
+        <ul>
+          {Object.entries(rooms).map(([id, sala]) => (
+            <li key={id} style={{ marginBottom: 10 }}>
+              <strong>{sala.nome}</strong>
+
+              <button
+                style={{ marginLeft: 10, background: "#0a74da", color: "white" }}
+                onClick={() => clearMembers(id)}
+              >
+                🧹 Limpar membros
+              </button>
+
+              <button
+                style={{ marginLeft: 10, background: "red", color: "white" }}
+                onClick={() => deleteRoom(id)}
+              >
+                ❌ Apagar sala
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        <hr />
+
+        <button
+          onClick={() => deleteRoom("***")}
+          style={{ marginTop: 20, color: "white", background: "red" }}
+        >
+          Apagar TODAS as salas
+        </button>
+
+        {message && (
+          <p style={{ marginTop: 20, color: "blue" }}>{message}</p>
+        )}
+      </div>
+    </div>
+  );
 }

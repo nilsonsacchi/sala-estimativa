@@ -27,6 +27,11 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
+    "/create-rooms": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/create-rooms.js"
+    ],
     "/delete-rooms": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
