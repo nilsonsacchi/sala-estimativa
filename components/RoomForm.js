@@ -61,18 +61,20 @@ export default function RoomForm({ onEnter }) {
         <h2 style={styles.title}>Entrar na Sala</h2>
 
         {/* SELECT de salas */}
-        <select
-          style={styles.input}
-          value={roomId}
-          onChange={(e) => setRoom(e.target.value)}
-        >
-          <option value="">Selecione uma Sala...</option>
-          {rooms.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.nome}
-            </option>
-          ))}
-        </select>
+        <div style={styles.combobox}>
+          <select
+            style={styles.input}
+            value={roomId}
+            onChange={(e) => setRoom(e.target.value)}
+          >
+            <option value="">Selecione uma Sala...</option>
+            {rooms.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.nome}
+              </option>
+            ))}
+          </select>
+        </div>
 
         {/* Nome livre */}
         <input
@@ -106,6 +108,14 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     marginTop: "20px",
+  },
+  combobox: {
+    width: "320px",
+    padding: "0px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    textAlign: "center",
   },
   box: {
     width: "300px",
