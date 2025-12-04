@@ -10,6 +10,10 @@ export default function RoomView({ roomId, userName }) {
   const [roomName, setRoomName] = useState("");
 
   useEffect(() => {
+
+    localStorage.setItem("roomId", roomId);
+    localStorage.setItem("userName", userName);
+
     const db = getDB();
 
     // Nome da sala
@@ -34,8 +38,12 @@ export default function RoomView({ roomId, userName }) {
       const val = snap.val() || {};
       setPart(val);
 
-      if (val[userName] && typeof val[userName].escolha === "number") {
-        setSelected(val[userName].escolha);
+      if (val[userName]) {
+        if (typeof val[userName].escolha === "number") {
+          setSelected(val[userName].escolha);
+        } else {
+          setSelected(null); // 🔥 limpar seleção para TODOS
+        }
       }
     });
 
@@ -166,11 +174,11 @@ export default function RoomView({ roomId, userName }) {
               </span>
             );
 
-          // Revelado → mostrar corretamente a hora
+            // Revelado → mostrar corretamente a hora
           } else if (i.revelado === true) {
             show = `${i.escolha}h`;
 
-          // Escolheu, mas está oculto
+            // Escolheu, mas está oculto
           } else {
             show = (
               <span

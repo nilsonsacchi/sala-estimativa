@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getDB } from "../lib/firebaseClient";
 import { ref, onValue } from "firebase/database";
+import styless from "../styles/home/RoomForm.module.css";
 
 export default function RoomForm({ onEnter }) {
   const [roomId, setRoom] = useState("");
@@ -56,14 +57,13 @@ export default function RoomForm({ onEnter }) {
   const isDisabled = !dbReady || !roomId || !name.trim();
 
   return (
-    <div style={styles.wrapper}>
-      <div style={styles.box}>
-        <h2 style={styles.title}>Entrar na Sala</h2>
+    <div className={styless.wrapper}>
+      <div className={styless.box}>
+        <h2 className={styless.title}>Entrar na Sala</h2>
 
-        {/* SELECT de salas */}
-        <div style={styles.combobox}>
+        <div className={styless.combobox}>
           <select
-            style={styles.input}
+            className={styless.input}
             value={roomId}
             onChange={(e) => setRoom(e.target.value)}
           >
@@ -76,23 +76,17 @@ export default function RoomForm({ onEnter }) {
           </select>
         </div>
 
-        {/* Nome livre */}
         <input
-          style={styles.input}
+          className={styless.inputNome}
           placeholder="Seu nome"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        {/* Mensagem de erro */}
-        {error && <p style={{ color: "red", fontSize: 14 }}>{error}</p>}
+        {error && <p className={styless.error}>{error}</p>}
 
         <button
-          style={{
-            ...styles.button,
-            backgroundColor: isDisabled ? "#9BBCE8" : "#4A90E2",
-            cursor: isDisabled ? "not-allowed" : "pointer",
-          }}
+          className={`${styless.button} ${isDisabled ? styless.disabled : ""}`}
           onClick={handleEnter}
           disabled={isDisabled}
         >
@@ -102,49 +96,3 @@ export default function RoomForm({ onEnter }) {
     </div>
   );
 }
-
-const styles = {
-  wrapper: {
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "20px",
-  },
-  combobox: {
-    width: "320px",
-    padding: "0px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    textAlign: "center",
-  },
-  box: {
-    width: "300px",
-    padding: "0px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    textAlign: "center",
-  },
-  title: {
-    marginBottom: "10px",
-    fontSize: "20px",
-  },
-  input: {
-    padding: "10px",
-    borderRadius: "10px",
-    border: "1px solid #ccc",
-    fontSize: "16px",
-    width: "100%",
-    outline: "none",
-  },
-  button: {
-    backgroundColor: "#4A90E2",
-    color: "white",
-    padding: "12px",
-    border: "none",
-    borderRadius: "8px",
-    fontSize: "16px",
-    width: "120px",
-    alignSelf: "center",
-  },
-};
