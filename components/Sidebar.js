@@ -1,20 +1,20 @@
 // components/Sidebar.js
-import React from "react";
-import { useRouter } from "next/router"; // <-- pages router
+import { useRouter } from "next/router";
 import { getDB } from "../lib/firebaseClient";
-import { ref, remove } from "firebase/database";
+import { remove, ref } from "firebase/database";
+import { logout } from "../lib/firebaseClient";
 
 /**
- * Sidebar que remove o usuário da sala antes de navegar.
- * Compatível com Pages Router (next/router).
- *
- * Props:
- *  - onLeaveRoom: função opcional que limpa o estado local (inRoom, rid, name)
+ * Sidebar unificada:
+ * - Mostra usuário
+ * - Botão de logout (Google)
+ * - Navegação (Home, Criar, Apagar salas)
+ * - Remove participante ao sair da sala
  */
-export default function Sidebar({ onLeaveRoom }) {
+export default function Sidebar({ user, onLeaveRoom }) {
   const router = useRouter();
 
-  // tenta remover participante do firebase (se roomId+userName existirem)
+  // remove participante da sala no Firebase, se existir
   async function tryRemoveParticipant() {
     try {
       if (typeof window === "undefined") return;
@@ -25,39 +25,38 @@ export default function Sidebar({ onLeaveRoom }) {
       if (!roomId || !userName) return;
 
       const db = getDB();
-      if (!db) {
-        console.warn("Firebase DB não inicializado ao tentar remover participante.");
-        return;
-      }
+      if (!db) return;
 
       await remove(ref(db, `salas/${roomId}/participantes/${userName}`));
-      console.log("Participante removido:", userName, "sala:", roomId);
 
-      // opcional: limpar storage local
       localStorage.removeItem("roomId");
       localStorage.removeItem("userName");
+
     } catch (err) {
-      console.error("Erro ao remover participante (não impede navegação):", err);
+      console.error("Erro ao remover participante:", err);
     }
   }
 
-  // fluxo seguro: chama onLeaveRoom (se houver), tenta remover do DB e navega
   async function clearAndGo(path) {
     try {
       if (onLeaveRoom) {
         try {
           onLeaveRoom();
         } catch (e) {
-          console.warn("onLeaveRoom lançou erro:", e);
+          console.warn("Erro no onLeaveRoom:", e);
         }
       }
 
-      // removemos participante em background, mas aguardamos para reduzir chances de ghost
       await tryRemoveParticipant();
     } finally {
-      // sempre navega, mesmo que a remoção falhe
       router.push(path);
     }
+  }
+
+  async function handleLogout() {
+    await tryRemoveParticipant();
+    await logout();
+    router.push("/login");
   }
 
   return (
@@ -69,11 +68,22 @@ export default function Sidebar({ onLeaveRoom }) {
           margin: 0,
           width: "220px",
           height: "100vh",
-          backgroundColor: "#f4f4f4",
-          borderRight: "1px solid #ddd",
+          backgroundColor: "#222",
+          color: "white",
+          borderRight: "1px solid #444",
           boxSizing: "border-box",
         }}
       >
+        {/* Usuário logado */}
+        {user && (
+          <li style={{ marginBottom: "20px" }}>
+            <strong>{user.displayName}</strong>
+            <br />
+            <small>{user.email}</small>
+            <hr style={{ border: "none", borderBottom: "1px solid #444", marginTop: "15px" }} />
+          </li>
+        )}
+
         <li
           style={{ marginBottom: "10px", cursor: "pointer" }}
           onClick={() => clearAndGo("/")}
@@ -81,7 +91,7 @@ export default function Sidebar({ onLeaveRoom }) {
           🏠 Home
         </li>
 
-        <hr style={{ margin: "15px 0", border: "none", borderBottom: "1px solid #ccc" }} />
+        <hr style={{ margin: "15px 0", border: "none", borderBottom: "1px solid #444" }} />
 
         <li
           style={{ marginBottom: "10px", cursor: "pointer" }}
@@ -95,6 +105,25 @@ export default function Sidebar({ onLeaveRoom }) {
           onClick={() => clearAndGo("/delete-rooms")}
         >
           🗑️ Apagar Salas
+        </li>
+
+        <hr style={{ margin: "15px 0", border: "none", borderBottom: "1px solid #444" }} />
+
+        {/* Botão de logout */}
+        <li
+          style={{
+            marginTop: "20px",
+            cursor: "pointer",
+            padding: "10px",
+            background: "#e74c3c",
+            color: "white",
+            textAlign: "center",
+            borderRadius: "8px",
+            fontWeight: "bold"
+          }}
+          onClick={handleLogout}
+        >
+          🚪 Sair
         </li>
       </ul>
     </nav>
