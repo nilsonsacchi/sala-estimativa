@@ -1,14 +1,8 @@
 // pages/api/clear-members.js
-import { initializeApp, getApps } from "firebase/app";
-import { getDatabase, ref, remove } from "firebase/database";
-import { firebaseConfig } from "../../lib/firebaseClient";
+import { ref, remove } from "firebase/database";
+import { getDB } from "../../lib/firebaseClient";
 
 const SECRET_PASSWORD = "@@@Nilson";
-
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
-const db = getDatabase();
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -26,6 +20,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    const db = getDB();
     const membersRef = ref(db, `salas/${roomId}/participantes`);
     await remove(membersRef);
 
