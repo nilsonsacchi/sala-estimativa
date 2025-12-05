@@ -1,80 +1,149 @@
+// components/RoomView.js
 import { useEffect, useState } from "react";
-import { ref, set, onValue, update, onDisconnect } from "firebase/database";
-import { getDB } from "../lib/firebaseClient";
+import { ref, set, onValue, update, onDisconnect, remove, get } from "firebase/database";
+import { getDB, getFirebaseApp } from "../lib/firebaseClient";
+import { getAuth } from "firebase/auth";
 
-const OPT = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36];
-
-export default function RoomView({ roomId, userName }) {
+/**
+ * Props:
+ * - roomId: string
+ * - user: Firebase User object (preferível) — { uid, displayName, email, photoURL }
+ *
+ * Behavior:
+ * - Uses uid as participant key: salas/{roomId}/participantes/{uid}
+ * - If an "old" key exists under displayName, it will migrate that data to uid automatically
+ * - Writes participant record: { nome, escolha, revelado, joinedAt }
+ */
+export default function RoomView({ roomId, user: userProp }) {
   const [part, setPart] = useState({});
   const [selected, setSelected] = useState(null);
   const [roomName, setRoomName] = useState("");
 
-  useEffect(() => {
+  const OPT = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36];
 
-    localStorage.setItem("roomId", roomId);
-    localStorage.setItem("userName", userName);
+  useEffect(() => {
+    // get user (prefer prop, fallback to auth.currentUser)
+    const auth = getAuth(getFirebaseApp());
+    const user = userProp || auth.currentUser;
+    if (!user || !roomId) return;
+
+    const uid = user.uid;
+    const displayName = user.displayName || "Usuário";
 
     const db = getDB();
 
     // Nome da sala
     const salaRef = ref(db, `salas/${roomId}/nome`);
-    onValue(salaRef, snap => {
+    const unsubSala = onValue(salaRef, (snap) => {
       setRoomName(snap.val() || "Sala sem nome");
     });
 
-    // Caminho do participante
-    const userRef = ref(db, `salas/${roomId}/participantes/${userName}`);
+    // PARTICIPANTES: cleanup / migration / registro
+    const participantsRefRoot = ref(db, `salas/${roomId}/participantes`);
+    // 1) check if old key exists (displayName) and migrate it to uid if needed
+    get(participantsRefRoot).then((snap) => {
+      const val = snap.val() || {};
+      const hadUid = !!val[uid];
+      const hadDisplayNameKey = !!val[displayName];
 
-    // Criar participante ao entrar
-    set(userRef, { escolha: null, revelado: false });
+      if (!hadUid && hadDisplayNameKey) {
+        // migrate data from displayName -> uid
+        const old = val[displayName];
+        const newData = {
+          nome: displayName,
+          escolha: old?.escolha ?? null,
+          revelado: old?.revelado ?? false,
+          migratedFrom: displayName,
+          migratedAt: Date.now(),
+        };
+        // write new uid key and remove old key
+        set(ref(db, `salas/${roomId}/participantes/${uid}`), newData)
+          .then(() => remove(ref(db, `salas/${roomId}/participantes/${displayName}`)))
+          .catch((err) => console.error("Erro migração participante:", err));
+      }
+    }).catch((err) => {
+      console.warn("Falha ao checar participantes para migração:", err);
+    });
 
-    // 🔥 Remove o usuário automaticamente ao fechar o navegador
+    // 2) create/update participant record with uid (join)
+    const userRef = ref(db, `salas/${roomId}/participantes/${uid}`);
+    set(userRef, {
+      nome: displayName,
+      escolha: null,
+      revelado: false,
+      joinedAt: Date.now(),
+    }).catch((err) => console.error("Erro ao set participante:", err));
+
+    // ensure remove on disconnect
     onDisconnect(userRef).remove();
 
-    // Participantes
-    const roomRef = ref(db, `salas/${roomId}/participantes`);
-
-    const unsub = onValue(roomRef, snap => {
+    // 3) subscribe to participants list
+    const unsub = onValue(participantsRefRoot, (snap) => {
       const val = snap.val() || {};
       setPart(val);
 
-      if (val[userName]) {
-        if (typeof val[userName].escolha === "number") {
-          setSelected(val[userName].escolha);
+      // If this user has a saved escolha (number) keep selection locally.
+      if (val[uid]) {
+        if (typeof val[uid].escolha === "number") {
+          setSelected(val[uid].escolha);
         } else {
-          setSelected(null); // 🔥 limpar seleção para TODOS
+          setSelected(null);
         }
+      } else {
+        setSelected(null);
       }
     });
 
-    return () => unsub();
-  }, [roomId, userName]);
+    // cleanup on unmount
+    return () => {
+      try {
+        unsub();
+        unsubSala();
+      } catch (e) {}
+    };
+  }, [roomId, userProp]);
+
+  // helper to get current user (uid)
+  function getCurrentUser() {
+    try {
+      const app = getFirebaseApp();
+      const auth = getAuth(app);
+      return auth.currentUser;
+    } catch (e) {
+      return null;
+    }
+  }
 
   // Selecionar voto
   function choose(v) {
+    const user = getCurrentUser();
+    if (!user) return alert("Usuário não autenticado.");
+
+    const uid = user.uid;
     const db = getDB();
     setSelected(v);
-    update(
-      ref(db, `salas/${roomId}/participantes/${userName}`),
-      { escolha: v, revelado: false }
-    );
+    update(ref(db, `salas/${roomId}/participantes/${uid}`), {
+      escolha: v,
+      revelado: false,
+    }).catch((err) => console.error("Erro ao escolher:", err));
   }
 
   // Revelar para todos
   function revealAll() {
     const db = getDB();
-    Object.keys(part).forEach(p => {
-      update(ref(db, `salas/${roomId}/participantes/${p}`), { revelado: true });
+    Object.keys(part).forEach((p) => {
+      update(ref(db, `salas/${roomId}/participantes/${p}`), { revelado: true }).catch((e) =>
+        console.error("Erro reveal:", e)
+      );
     });
   }
 
   // Ocultar para todos
   function hideAll() {
     const db = getDB();
-    Object.keys(part).forEach(p => {
-      update(
-        ref(db, `salas/${roomId}/participantes/${p}`),
-        { revelado: false }
+    Object.keys(part).forEach((p) => {
+      update(ref(db, `salas/${roomId}/participantes/${p}`), { revelado: false }).catch((e) =>
+        console.error("Erro hide:", e)
       );
     });
   }
@@ -82,14 +151,19 @@ export default function RoomView({ roomId, userName }) {
   // Limpar todos os votos
   function clearAll() {
     const db = getDB();
-    Object.keys(part).forEach(p => {
-      update(
-        ref(db, `salas/${roomId}/participantes/${p}`),
-        { escolha: null, revelado: false }
+    Object.keys(part).forEach((p) => {
+      update(ref(db, `salas/${roomId}/participantes/${p}`), { escolha: null, revelado: false }).catch((e) =>
+        console.error("Erro clear:", e)
       );
     });
-
     setSelected(null);
+  }
+
+  // Render participant display name (data may be keyed by uid or older key)
+  function participantDisplayName(key, data) {
+    if (data && data.nome) return data.nome;
+    // fallback: if key looks like uid, hide it; else show key
+    return key;
   }
 
   return (
@@ -98,11 +172,13 @@ export default function RoomView({ roomId, userName }) {
         Sala: <strong>{roomName}</strong>
       </h2>
 
-      <p>Você: <strong>{userName}</strong></p>
+      <p>
+        Você: <strong>{participantDisplayName(getCurrentUser()?.uid || "—", { nome: getCurrentUser()?.displayName })}</strong>
+      </p>
 
       {/* BOTÕES DE HORA */}
-      <div className="grid">
-        {OPT.map(o => (
+      <div className="grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+        {OPT.map((o) => (
           <button
             key={o}
             onClick={() => choose(o)}
@@ -114,7 +190,7 @@ export default function RoomView({ roomId, userName }) {
               color: selected === o ? "#ffffff" : "#333",
               fontSize: "16px",
               cursor: "pointer",
-              fontWeight: selected === o ? "bold" : "normal"
+              fontWeight: selected === o ? "bold" : "normal",
             }}
           >
             {o}h
@@ -137,7 +213,7 @@ export default function RoomView({ roomId, userName }) {
             borderRadius: "8px",
             border: "none",
             cursor: "pointer",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
         >
           Ocultar escolhas
@@ -152,22 +228,20 @@ export default function RoomView({ roomId, userName }) {
       <h3 style={{ marginTop: 16 }}>Resultados</h3>
 
       <div>
-        {Object.keys(part).length === 0 && (
-          <div>Ninguém na sala ainda.</div>
-        )}
+        {Object.keys(part).length === 0 && <div>Ninguém na sala ainda.</div>}
 
-        {Object.entries(part).map(([n, i]) => {
+        {Object.entries(part).map(([key, data]) => {
           let show;
 
           // Nunca votou
-          if (i.escolha === null || i.escolha === undefined) {
+          if (data?.escolha === null || data?.escolha === undefined) {
             show = (
               <span
                 style={{
                   opacity: 0.6,
                   fontStyle: "italic",
                   animation: "pulse 1.5s infinite",
-                  display: "inline-block"
+                  display: "inline-block",
                 }}
               >
                 ⏳ aguardando...
@@ -175,8 +249,8 @@ export default function RoomView({ roomId, userName }) {
             );
 
             // Revelado → mostrar corretamente a hora
-          } else if (i.revelado === true) {
-            show = `${i.escolha}h`;
+          } else if (data?.revelado === true) {
+            show = `${data.escolha}h`;
 
             // Escolheu, mas está oculto
           } else {
@@ -186,7 +260,7 @@ export default function RoomView({ roomId, userName }) {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "6px",
-                  fontWeight: "bold"
+                  fontWeight: "bold",
                 }}
               >
                 👁️ revelar
@@ -194,18 +268,23 @@ export default function RoomView({ roomId, userName }) {
             );
           }
 
+          const nomeExibir = participantDisplayName(key, data);
+
           return (
             <div
-              key={n}
+              key={key}
               style={{
                 padding: "6px 0",
-                borderBottom: "1px solid #eee"
+                borderBottom: "1px solid #eee",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
               }}
             >
-              {n}:{" "}
-              <strong style={{ display: "inline-flex", alignItems: "center" }}>
-                {show}
-              </strong>
+              <div>
+                {nomeExibir}:{" "}
+                <strong style={{ display: "inline-flex", alignItems: "center" }}>{show}</strong>
+              </div>
             </div>
           );
         })}

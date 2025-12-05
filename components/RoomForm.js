@@ -1,3 +1,4 @@
+// components/RoomForm.js
 import { useState, useEffect } from "react";
 import { getDB } from "../lib/firebaseClient";
 import { ref, onValue } from "firebase/database";
@@ -5,7 +6,6 @@ import styless from "../styles/home/RoomForm.module.css";
 
 export default function RoomForm({ onEnter }) {
   const [roomId, setRoom] = useState("");
-  const [name, setName] = useState("");
   const [dbReady, setDbReady] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState("");
@@ -45,16 +45,12 @@ export default function RoomForm({ onEnter }) {
       setError("Selecione uma sala antes de entrar.");
       return;
     }
-    if (!name.trim()) {
-      setError("Digite seu nome para entrar.");
-      return;
-    }
 
     setError("");
-    onEnter(roomId, name);
+    onEnter(roomId);
   };
 
-  const isDisabled = !dbReady || !roomId || !name.trim();
+  const isDisabled = !dbReady || !roomId;
 
   return (
     <div className={styless.wrapper}>
@@ -62,11 +58,7 @@ export default function RoomForm({ onEnter }) {
         <h2 className={styless.title}>Entrar na Sala</h2>
 
         <div className={styless.combobox}>
-          <select
-            className={styless.input}
-            value={roomId}
-            onChange={(e) => setRoom(e.target.value)}
-          >
+          <select className={styless.input} value={roomId} onChange={(e) => setRoom(e.target.value)}>
             <option value="">Selecione uma Sala...</option>
             {rooms.map((r) => (
               <option key={r.id} value={r.id}>
@@ -75,13 +67,6 @@ export default function RoomForm({ onEnter }) {
             ))}
           </select>
         </div>
-
-        <input
-          className={styless.inputNome}
-          placeholder="Seu nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
 
         {error && <p className={styless.error}>{error}</p>}
 

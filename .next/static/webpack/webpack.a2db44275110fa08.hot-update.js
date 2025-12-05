@@ -11,11 +11,7 @@ self["webpackHotUpdate_N_E"]("webpack",{},
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ /* webpack/runtime/getFullHash */
 /******/ !function() {
-<<<<<<<< HEAD:.next/static/webpack/webpack.e038f48191405227.hot-update.js
-/******/ 	__webpack_require__.h = function() { return "74c0e888a9cf3c0d"; }
-========
-/******/ 	__webpack_require__.h = function() { return "5e57ed8ea3a65b11"; }
->>>>>>>> loginnovo:.next/static/webpack/webpack.6e533557c7fb35bc.hot-update.js
+/******/ 	__webpack_require__.h = function() { return "5aed329421195e27"; }
 /******/ }();
 /******/ 
 /******/ }

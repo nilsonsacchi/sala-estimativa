@@ -14,7 +14,6 @@ export default function Home() {
 
     const [inRoom, setIn] = useState(false);
     const [rid, setRid] = useState('');
-    const [name, setName] = useState('');
 
     useEffect(() => {
         initFirebase();
@@ -25,7 +24,6 @@ export default function Home() {
                 window.location.href = "/login";
             } else {
                 setUser(u);
-                setName(u.displayName || "Usuário");
                 setLoading(false);
             }
         });
@@ -63,9 +61,7 @@ export default function Home() {
                     </>
                 )}
 
-                {inRoom && (
-                    <RoomView roomId={rid} userName={user.displayName} />
-                )}
+                {inRoom && <RoomView roomId={rid} user={user} />}
             </main>
         </div>
     );

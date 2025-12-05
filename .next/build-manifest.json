@@ -27,7 +27,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-<<<<<<< HEAD
     "/create-rooms": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
@@ -37,12 +36,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/delete-rooms.js"
-=======
-    "/login": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/login.js"
->>>>>>> loginnovo
     ]
   },
   "ampFirstPages": []
