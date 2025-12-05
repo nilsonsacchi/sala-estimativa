@@ -131,11 +131,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-<<<<<<< HEAD
-/******/ 		__webpack_require__.h = function() { return "74c0e888a9cf3c0d"; }
-=======
-/******/ 		__webpack_require__.h = function() { return "80451b8cd37b46c1"; }
->>>>>>> loginnovo
+/******/ 		__webpack_require__.h = function() { return "2c2ecce498d355a9"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
