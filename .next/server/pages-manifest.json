@@ -2,7 +2,12 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+<<<<<<< HEAD
   "/create-rooms": "pages/create-rooms.js",
   "/": "pages/index.js",
   "/delete-rooms": "pages/delete-rooms.js"
+=======
+  "/": "pages/index.js",
+  "/login": "pages/login.js"
+>>>>>>> loginnovo
 }
