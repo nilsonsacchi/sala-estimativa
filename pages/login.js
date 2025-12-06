@@ -1,10 +1,6 @@
 // pages/login.js
 import { useEffect } from "react";
-import {
-  initFirebase,
-  loginWithGoogle,
-  getAuthInstance,
-} from "../lib/firebaseClient";
+import { initFirebase, loginWithGoogle, getAuthInstance } from "../lib/firebaseClient";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function Login() {
