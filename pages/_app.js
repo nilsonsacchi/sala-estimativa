@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Sidebar from "../components/Sidebar";
 import { getFirebaseApp } from "../lib/firebaseClient";
-
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined); // undefined = ainda carregando
 
-  // Função usada globalmente para mandar sair da sala
+  // Função global para deixar sala
   function handleLeaveRoom() {
     if (window.__LEAVE_ROOM_CALLBACK__) {
       try {
@@ -22,12 +21,13 @@ export default function App({ Component, pageProps }) {
 
   const hideSidebar = router.pathname === "/login";
 
+  // Inicializa auth listener
   useEffect(() => {
     const app = getFirebaseApp();
     const auth = getAuth(app);
 
     const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
+      setUser(u); // null se não logado
     });
 
     return () => unsub();
@@ -35,19 +35,10 @@ export default function App({ Component, pageProps }) {
 
   return (
     <div style={{ display: "flex" }}>
-      {!hideSidebar && (
-        <Sidebar
-          user={user}
-          onLeaveRoom={handleLeaveRoom}
-        />
-      )}
+      {!hideSidebar && <Sidebar user={user} onLeaveRoom={handleLeaveRoom} />}
 
       <main style={{ flex: 1 }}>
-        <Component
-          {...pageProps}
-          user={user}
-          leaveRoom={handleLeaveRoom}
-        />
+        <Component {...pageProps} user={user} leaveRoom={handleLeaveRoom} />
       </main>
     </div>
   );

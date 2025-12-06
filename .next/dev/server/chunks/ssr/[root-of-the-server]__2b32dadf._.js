@@ -598,6 +598,44 @@ __turbopack_context__.v({
   "title": "Home-module__-HUO1a__title",
 });
 }),
+"[project]/components/ProtectedRoute.js [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// components/ProtectedRoute.js
+__turbopack_context__.s([
+    "default",
+    ()=>ProtectedRoute
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+;
+;
+;
+function ProtectedRoute({ user, children }) {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        if (user === undefined) return; // ainda inicializando
+        if (!user) router.replace("/login"); // redireciona se não logado
+    }, [
+        user,
+        router
+    ]);
+    if (user === undefined || !user) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        style: {
+            padding: 40
+        },
+        children: "Carregando..."
+    }, void 0, false, {
+        fileName: "[project]/components/ProtectedRoute.js",
+        lineNumber: 13,
+        columnNumber: 43
+    }, this);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+        children: children
+    }, void 0, false);
+}
+}),
 "[project]/pages/index.js [ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -606,7 +644,7 @@ return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, _
 // pages/index.js
 __turbopack_context__.s([
     "default",
-    ()=>ProtectedHome
+    ()=>Home
 ]);
 var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
@@ -625,77 +663,76 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
-function Home({ user }) {
+function Home({ user, leaveRoom }) {
     const [rid, setRid] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(null);
     const [inRoom, setInRoom] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
-    // Função chamada quando sai da sala (Sidebar chama isso!)
     function handleLeaveRoom() {
         setInRoom(false);
         setRid(null);
     }
-    // Disponibiliza a função global para o _app.js acessar
     (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
         window.__LEAVE_ROOM_CALLBACK__ = ()=>handleLeaveRoom();
     }, [
         rid,
         inRoom
     ]);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+    if (user === undefined) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
         style: {
-            padding: 24
+            padding: 40
         },
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
-                className: __TURBOPACK__imported__module__$5b$project$5d2f$styles$2f$home$2f$Home$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].title,
-                style: {
-                    textAlign: "center",
-                    marginTop: "-10px"
-                },
-                children: "Sala de Estimativa"
-            }, void 0, false, {
-                fileName: "[project]/pages/index.js",
-                lineNumber: 25,
-                columnNumber: 7
-            }, this),
-            !inRoom && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$RoomForm$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
-                onEnter: (roomId)=>{
-                    setRid(roomId);
-                    setInRoom(true);
-                }
-            }, void 0, false, {
-                fileName: "[project]/pages/index.js",
-                lineNumber: 30,
-                columnNumber: 9
-            }, this),
-            inRoom && user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$RoomView$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
-                roomId: rid,
-                user: user,
-                onLeave: handleLeaveRoom
-            }, void 0, false, {
-                fileName: "[project]/pages/index.js",
-                lineNumber: 39,
-                columnNumber: 9
-            }, this)
-        ]
-    }, void 0, true, {
+        children: "Carregando..."
+    }, void 0, false, {
         fileName: "[project]/pages/index.js",
-        lineNumber: 24,
-        columnNumber: 5
+        lineNumber: 21,
+        columnNumber: 34
     }, this);
-}
-function ProtectedHome(props) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ProtectedRoute$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
-        user: props.user,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(Home, {
-            ...props
-        }, void 0, false, {
+        user: user,
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+            style: {
+                padding: 24
+            },
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
+                    className: __TURBOPACK__imported__module__$5b$project$5d2f$styles$2f$home$2f$Home$2e$module$2e$css__$5b$ssr$5d$__$28$css__module$29$__["default"].title,
+                    style: {
+                        textAlign: "center",
+                        marginTop: "-10px"
+                    },
+                    children: "Sala de Estimativa"
+                }, void 0, false, {
+                    fileName: "[project]/pages/index.js",
+                    lineNumber: 26,
+                    columnNumber: 9
+                }, this),
+                !inRoom && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$RoomForm$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    onEnter: (roomId)=>{
+                        setRid(roomId);
+                        setInRoom(true);
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/pages/index.js",
+                    lineNumber: 31,
+                    columnNumber: 11
+                }, this),
+                inRoom && user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$RoomView$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    roomId: rid,
+                    user: user,
+                    onLeave: handleLeaveRoom
+                }, void 0, false, {
+                    fileName: "[project]/pages/index.js",
+                    lineNumber: 40,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
             fileName: "[project]/pages/index.js",
-            lineNumber: 53,
+            lineNumber: 25,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/index.js",
-        lineNumber: 52,
+        lineNumber: 24,
         columnNumber: 5
     }, this);
 }
@@ -709,4 +746,4 @@ module.exports = mod;
 }),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__2d204963._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__2b32dadf._.js.map

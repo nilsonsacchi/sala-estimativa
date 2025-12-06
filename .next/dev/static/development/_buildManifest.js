@@ -2,11 +2,17 @@ self.__BUILD_MANIFEST = {
   "/": [
     "static/chunks/pages/index.js"
   ],
+  "/_error": [
+    "static/chunks/pages/_error.js"
+  ],
   "/create-rooms": [
     "static/chunks/pages/create-rooms.js"
   ],
   "/delete-rooms": [
     "static/chunks/pages/delete-rooms.js"
+  ],
+  "/login": [
+    "static/chunks/pages/login.js"
   ],
   "/sobre": [
     "static/chunks/pages/sobre.js"

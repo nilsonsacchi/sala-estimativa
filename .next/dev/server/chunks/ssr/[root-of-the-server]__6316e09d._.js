@@ -193,13 +193,12 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
             return null;
         }
     }
-    // remove participante da sala no Firebase, se existir
     async function tryRemoveParticipant() {
         try {
             if ("TURBOPACK compile-time truthy", 1) return;
             //TURBOPACK unreachable
             ;
-            const roomId = undefined; // still keep roomId in localStorage to know last room (optional)
+            const roomId = undefined;
             const user = undefined;
             const uid = undefined;
             const db = undefined;
@@ -212,13 +211,11 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
             if (onLeaveRoom) {
                 try {
                     onLeaveRoom();
-                } catch (e) {
-                    console.warn("Erro no onLeaveRoom:", e);
-                }
+                } catch  {}
             }
             await tryRemoveParticipant();
         } finally{
-            router.push(path).catch((err)=>console.error("Router erro:", err));
+            router.push(path).catch(console.error);
         }
     }
     async function handleLogout() {
@@ -233,9 +230,9 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                 listStyle: "none",
                 padding: "20px",
                 margin: 0,
-                width: "220px",
+                width: "210px",
                 height: "100vh",
-                backgroundColor: "#222",
+                backgroundColor: "#111010ff",
                 color: "white",
                 borderRight: "1px solid #444",
                 boxSizing: "border-box"
@@ -250,19 +247,19 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                             children: user.displayName
                         }, void 0, false, {
                             fileName: "[project]/components/Sidebar.js",
-                            lineNumber: 94,
+                            lineNumber: 79,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("br", {}, void 0, false, {
                             fileName: "[project]/components/Sidebar.js",
-                            lineNumber: 95,
+                            lineNumber: 80,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("small", {
                             children: user.email
                         }, void 0, false, {
                             fileName: "[project]/components/Sidebar.js",
-                            lineNumber: 96,
+                            lineNumber: 81,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("hr", {
@@ -273,13 +270,13 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/components/Sidebar.js",
-                            lineNumber: 97,
+                            lineNumber: 82,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 93,
+                    lineNumber: 78,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
@@ -291,7 +288,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "🏠 Home"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 101,
+                    lineNumber: 86,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("hr", {
@@ -302,7 +299,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 105,
+                    lineNumber: 89,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
@@ -314,7 +311,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "🏗️ Criar Salas"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 107,
+                    lineNumber: 91,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
@@ -326,7 +323,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "🗑️ Apagar Salas"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 111,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("hr", {
@@ -337,7 +334,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 115,
+                    lineNumber: 97,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
@@ -349,7 +346,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "ℹ️ Sobre"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 117,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("hr", {
@@ -360,7 +357,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 121,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
@@ -378,18 +375,18 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "🚪 Sair"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 124,
+                    lineNumber: 104,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/Sidebar.js",
-            lineNumber: 78,
+            lineNumber: 66,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/Sidebar.js",
-        lineNumber: 77,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
@@ -426,8 +423,8 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 function App({ Component, pageProps }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(null);
-    // Função usada globalmente para mandar sair da sala
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(undefined); // undefined = ainda carregando
+    // Função global para deixar sala
     function handleLeaveRoom() {
         if (window.__LEAVE_ROOM_CALLBACK__) {
             try {
@@ -436,11 +433,12 @@ function App({ Component, pageProps }) {
         }
     }
     const hideSidebar = router.pathname === "/login";
+    // Inicializa auth listener
     (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
         const app = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebaseClient$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["getFirebaseApp"])();
         const auth = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2f$auth__$5b$external$5d$__$28$firebase$2f$auth$2c$__esm_import$29$__["getAuth"])(app);
         const unsub = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2f$auth__$5b$external$5d$__$28$firebase$2f$auth$2c$__esm_import$29$__["onAuthStateChanged"])(auth, (u)=>{
-            setUser(u);
+            setUser(u); // null se não logado
         });
         return ()=>unsub();
     }, []);
@@ -454,8 +452,8 @@ function App({ Component, pageProps }) {
                 onLeaveRoom: handleLeaveRoom
             }, void 0, false, {
                 fileName: "[project]/pages/_app.js",
-                lineNumber: 39,
-                columnNumber: 9
+                lineNumber: 38,
+                columnNumber: 24
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("main", {
                 style: {
@@ -467,12 +465,12 @@ function App({ Component, pageProps }) {
                     leaveRoom: handleLeaveRoom
                 }, void 0, false, {
                     fileName: "[project]/pages/_app.js",
-                    lineNumber: 46,
+                    lineNumber: 41,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/_app.js",
-                lineNumber: 45,
+                lineNumber: 40,
                 columnNumber: 7
             }, this)
         ]

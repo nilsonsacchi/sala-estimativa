@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":["file:///D:/Desenvolvimento/sala-estimativa/pages/_app.js"],"sourcesContent":["// pages/_app.js\r\n"],"names":[],"mappings":"AAAA,gBAAgB"}}]
+}

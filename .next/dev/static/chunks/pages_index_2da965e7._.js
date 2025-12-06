@@ -12,7 +12,7 @@
   "static/chunks/node_modules_@firebase_database_dist_index_esm2017_a1b8bfff.js",
   "static/chunks/node_modules_@firebase_auth_dist_esm2017_5e0a66ed._.js",
   "static/chunks/node_modules_f91d4a1f._.js",
-  "static/chunks/[root-of-the-server]__a7d257b5._.js",
+  "static/chunks/[root-of-the-server]__cf7de0d5._.js",
   "static/chunks/styles_home_83252be3._.css"
 ],
     source: "entry"

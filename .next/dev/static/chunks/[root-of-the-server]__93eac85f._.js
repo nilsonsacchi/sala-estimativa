@@ -484,7 +484,7 @@ function Sobre() {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 style: {
                     fontSize: "32px",
-                    marginBottom: "20px"
+                    marginBottom: "10px"
                 },
                 children: "Sobre o Projeto"
             }, void 0, false, {
@@ -493,54 +493,47 @@ function Sobre() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                children: "Este sistema foi criado para auxiliar equipes a escolher estimativas de tempo para tarefas de forma simples e colaborativa."
-            }, void 0, false, {
-                fileName: "[project]/pages/sobre.js",
-                lineNumber: 12,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 children: [
-                    "Cada participante escolhe sua estimativa individualmente, clicando em ",
+                    "Este sistema foi criado para auxiliar equipes a escolher estimativas de tempo para tarefas de forma simples e colaborativa. Cada participante escolhe sua estimativa individualmente, clicando em ",
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
                         children: "Revelar"
                     }, void 0, false, {
                         fileName: "[project]/pages/sobre.js",
-                        lineNumber: 18,
+                        lineNumber: 15,
                         columnNumber: 79
                     }, this),
                     ", as escolhas são mostradas."
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 17,
+                lineNumber: 12,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 style: {
-                    marginTop: "30px"
+                    marginTop: "10px"
                 },
                 children: "Objetivo"
             }, void 0, false, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 21,
+                lineNumber: 18,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 children: "Tornar o processo de planejamento mais rápido, organizado e visual, ajudando times a chegarem em um consenso com mais facilidade."
             }, void 0, false, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 22,
+                lineNumber: 19,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 style: {
-                    marginTop: "30px"
+                    marginTop: "10px"
                 },
                 children: "Tecnologias"
             }, void 0, false, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 27,
+                lineNumber: 24,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -549,45 +542,59 @@ function Sobre() {
                         children: "Next.js 16"
                     }, void 0, false, {
                         fileName: "[project]/pages/sobre.js",
-                        lineNumber: 29,
+                        lineNumber: 26,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                         children: "Firebase (Auth + Firestore)"
                     }, void 0, false, {
                         fileName: "[project]/pages/sobre.js",
-                        lineNumber: 30,
+                        lineNumber: 27,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                         children: "React"
                     }, void 0, false, {
                         fileName: "[project]/pages/sobre.js",
-                        lineNumber: 31,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                         children: "Vercel Deployment"
                     }, void 0, false, {
                         fileName: "[project]/pages/sobre.js",
-                        lineNumber: 32,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 28,
+                lineNumber: 25,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 style: {
-                    marginTop: "40px",
+                    marginTop: "20px",
                     fontStyle: "italic"
                 },
-                children: "Desenvolvido com foco em simplicidade."
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                        children: "Desenvolvido com foco em simplicidade."
+                    }, void 0, false, {
+                        fileName: "[project]/pages/sobre.js",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
+                        fileName: "[project]/pages/sobre.js",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, this),
+                    "Nilson Sacchi Junior"
+                ]
+            }, void 0, true, {
                 fileName: "[project]/pages/sobre.js",
-                lineNumber: 35,
+                lineNumber: 32,
                 columnNumber: 7
             }, this)
         ]
