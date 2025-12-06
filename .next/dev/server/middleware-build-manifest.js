@@ -12,10 +12,10 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/node_modules_@firebase_database_dist_index_esm2017_a1b8bfff.js",
       "static/chunks/node_modules_@firebase_auth_dist_esm2017_5e0a66ed._.js",
       "static/chunks/node_modules_f91d4a1f._.js",
-      "static/chunks/[root-of-the-server]__a7d257b5._.js",
+      "static/chunks/[root-of-the-server]__cf7de0d5._.js",
       "static/chunks/styles_home_83252be3._.css",
       "static/chunks/pages_index_2da965e7._.js",
-      "static/chunks/turbopack-pages_index_33839296._.js"
+      "static/chunks/turbopack-pages_index_a5fe6cf7._.js"
     ],
     "/_app": [
       "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
@@ -33,6 +33,21 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/styles_globals_dc36e6c9.css",
       "static/chunks/pages__app_2da965e7._.js",
       "static/chunks/turbopack-pages__app_c608f36a._.js"
+    ],
+    "/_error": [
+      "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_cf5b50a6._.js",
+      "static/chunks/node_modules_next_dist_client_d0aa886c._.js",
+      "static/chunks/node_modules_next_dist_19fd0646._.js",
+      "static/chunks/node_modules_next_error_1cfbb379.js",
+      "static/chunks/[next]_entry_page-loader_ts_43b523b5._.js",
+      "static/chunks/node_modules_react_b4bd21af._.js",
+      "static/chunks/node_modules_react-dom_cjs_react-dom_development_2b5e0eb3.js",
+      "static/chunks/node_modules_react-dom_8a8085df._.js",
+      "static/chunks/node_modules_416396d1._.js",
+      "static/chunks/[root-of-the-server]__092393de._.js",
+      "static/chunks/pages__error_2da965e7._.js",
+      "static/chunks/turbopack-pages__error_3124a9b7._.js"
     ],
     "/create-rooms": [
       "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",
@@ -64,6 +79,21 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/[root-of-the-server]__f7546f61._.js",
       "static/chunks/pages_delete-rooms_2da965e7._.js",
       "static/chunks/turbopack-pages_delete-rooms_70a0f96b._.js"
+    ],
+    "/login": [
+      "static/chunks/node_modules_next_dist_compiled_48866e82._.js",
+      "static/chunks/node_modules_next_dist_shared_lib_82dc2e9d._.js",
+      "static/chunks/node_modules_next_dist_client_d0aa886c._.js",
+      "static/chunks/node_modules_next_dist_6024eba3._.js",
+      "static/chunks/node_modules_react_e3593a73._.js",
+      "static/chunks/node_modules_react-dom_cjs_react-dom_development_2b5e0eb3.js",
+      "static/chunks/node_modules_react-dom_8a8085df._.js",
+      "static/chunks/node_modules_@firebase_database_dist_index_esm2017_a1b8bfff.js",
+      "static/chunks/node_modules_@firebase_auth_dist_esm2017_5e0a66ed._.js",
+      "static/chunks/node_modules_20f708ae._.js",
+      "static/chunks/[root-of-the-server]__b6312bea._.js",
+      "static/chunks/pages_login_2da965e7._.js",
+      "static/chunks/turbopack-pages_login_70f8029b._.js"
     ],
     "/sobre": [
       "static/chunks/node_modules_next_dist_compiled_8ca6b690._.js",

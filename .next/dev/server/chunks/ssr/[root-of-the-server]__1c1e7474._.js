@@ -5,6 +5,12 @@ const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("reac
 
 module.exports = mod;
 }),
+"[externals]/react [external] (react, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("react", () => require("react"));
+
+module.exports = mod;
+}),
 "[externals]/fs [external] (fs, cjs)", ((__turbopack_context__, module, exports) => {
 
 const mod = __turbopack_context__.x("fs", () => require("fs"));
@@ -23,9 +29,21 @@ const mod = __turbopack_context__.x("zlib", () => require("zlib"));
 
 module.exports = mod;
 }),
+"[externals]/react/jsx-runtime [external] (react/jsx-runtime, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("react/jsx-runtime", () => require("react/jsx-runtime"));
+
+module.exports = mod;
+}),
 "[externals]/react-dom [external] (react-dom, cjs)", ((__turbopack_context__, module, exports) => {
 
 const mod = __turbopack_context__.x("react-dom", () => require("react-dom"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/compiled/next-server/pages-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/pages-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages-turbo.runtime.dev.js", () => require("next/dist/compiled/next-server/pages-turbo.runtime.dev.js"));
 
 module.exports = mod;
 }),
@@ -374,6 +392,51 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
 }
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
+"[project]/components/ProtectedRoute.js [ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// components/ProtectedRoute.js
+__turbopack_context__.s([
+    "default",
+    ()=>ProtectedRoute
+]);
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
+;
+;
+;
+function ProtectedRoute({ user, children }) {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(true);
+    (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
+        // Só depois de checar o user definimos o loading
+        if (user === undefined) return; // ainda não inicializou
+        if (!user) {
+            router.replace("/login"); // redirect apenas quando user é null
+        }
+        setLoading(false);
+    }, [
+        user,
+        router
+    ]);
+    // Enquanto carregando, não renderiza nada
+    if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
+        style: {
+            padding: 40
+        },
+        children: "Carregando..."
+    }, void 0, false, {
+        fileName: "[project]/components/ProtectedRoute.js",
+        lineNumber: 19,
+        columnNumber: 23
+    }, this);
+    // Se user existe, renderiza children
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
+        children: user ? children : null
+    }, void 0, false);
+}
+}),
 "[project]/pages/_app.js [ssr] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -390,6 +453,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$rout
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Sidebar$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/Sidebar.js [ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebaseClient$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/firebaseClient.js [ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2f$auth__$5b$external$5d$__$28$firebase$2f$auth$2c$__esm_import$29$__ = __turbopack_context__.i("[externals]/firebase/auth [external] (firebase/auth, esm_import)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ProtectedRoute$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ProtectedRoute.js [ssr] (ecmascript)");
 var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
     __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Sidebar$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__,
     __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebaseClient$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__,
@@ -403,9 +467,10 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
+;
 function App({ Component, pageProps }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(undefined); // undefined = ainda carregando
+    const [user, setUser] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(null);
     // Função global para deixar sala
     function handleLeaveRoom() {
         if (window.__LEAVE_ROOM_CALLBACK__) {
@@ -420,7 +485,7 @@ function App({ Component, pageProps }) {
         const app = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$firebaseClient$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["getFirebaseApp"])();
         const auth = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2f$auth__$5b$external$5d$__$28$firebase$2f$auth$2c$__esm_import$29$__["getAuth"])(app);
         const unsub = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$firebase$2f$auth__$5b$external$5d$__$28$firebase$2f$auth$2c$__esm_import$29$__["onAuthStateChanged"])(auth, (u)=>{
-            setUser(u); // null se não logado
+            setUser(u);
         });
         return ()=>unsub();
     }, []);
@@ -434,31 +499,45 @@ function App({ Component, pageProps }) {
                 onLeaveRoom: handleLeaveRoom
             }, void 0, false, {
                 fileName: "[project]/pages/_app.js",
-                lineNumber: 38,
+                lineNumber: 40,
                 columnNumber: 24
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("main", {
                 style: {
                     flex: 1
                 },
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(Component, {
+                children: hideSidebar ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(Component, {
                     ...pageProps,
-                    user: user,
-                    leaveRoom: handleLeaveRoom
+                    user: user
                 }, void 0, false, {
                     fileName: "[project]/pages/_app.js",
-                    lineNumber: 41,
-                    columnNumber: 9
+                    lineNumber: 44,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ProtectedRoute$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    user: user,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(Component, {
+                        ...pageProps,
+                        user: user,
+                        leaveRoom: handleLeaveRoom
+                    }, void 0, false, {
+                        fileName: "[project]/pages/_app.js",
+                        lineNumber: 47,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/pages/_app.js",
+                    lineNumber: 46,
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/_app.js",
-                lineNumber: 40,
+                lineNumber: 42,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/_app.js",
-        lineNumber: 37,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 }
@@ -466,4 +545,4 @@ __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
 ];
 
-//# sourceMappingURL=%5Broot-of-the-server%5D__4f7655cc._.js.map
+//# sourceMappingURL=%5Broot-of-the-server%5D__1c1e7474._.js.map
