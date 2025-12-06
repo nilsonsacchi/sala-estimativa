@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ref, set, onValue, update, onDisconnect, remove, get } from "firebase/database";
 import { getDB, getFirebaseApp } from "../lib/firebaseClient";
 import { getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
 
 /**
  * Props:
@@ -99,7 +100,9 @@ export default function RoomView({ roomId, user: userProp }) {
       try {
         unsub();
         unsubSala();
-      } catch (e) {}
+      } catch (e) {
+        remove(userRef).catch(() => { /* ignore */ });
+      }
     };
   }, [roomId, userProp]);
 

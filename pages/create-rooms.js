@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { getDB } from "../lib/firebaseClient";
 import { ref, push, set } from "firebase/database";
-import Sidebar from "../components/Sidebar";
+import styles from "../styles/home/Home.module.css";
 
 export default function CreateRoomsPage() {
   const [roomName, setRoomName] = useState("");
@@ -26,7 +26,6 @@ export default function CreateRoomsPage() {
 
   return (
     <div style={{ display: "flex" }}>
-      <Sidebar />
 
       <div style={{ padding: 20, width: "100%" }}>
         <h1>Criar Salas</h1>

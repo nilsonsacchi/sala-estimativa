@@ -8,8 +8,8 @@ self.__BUILD_MANIFEST = {
   "/delete-rooms": [
     "static/chunks/pages/delete-rooms.js"
   ],
-  "/login": [
-    "static/chunks/pages/login.js"
+  "/sobre": [
+    "static/chunks/pages/sobre.js"
   ],
   "__rewrites": {
     "afterFiles": [],
@@ -25,6 +25,7 @@ self.__BUILD_MANIFEST = {
     "/api/delete-rooms",
     "/create-rooms",
     "/delete-rooms",
-    "/login"
+    "/login",
+    "/sobre"
   ]
 };self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()

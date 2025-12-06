@@ -465,6 +465,7 @@ function triggerUpdate(msg) {
 "[project]/pages/_app.js [client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
+// pages/_app.js
 __turbopack_context__.s([
     "default",
     ()=>App
@@ -477,8 +478,8 @@ function App({ Component, pageProps }) {
         ...pageProps
     }, void 0, false, {
         fileName: "[project]/pages/_app.js",
-        lineNumber: 1,
-        columnNumber: 91
+        lineNumber: 6,
+        columnNumber: 59
     }, this);
 }
 _c = App;
