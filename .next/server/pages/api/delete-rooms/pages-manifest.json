@@ -1,0 +1,3 @@
+{
+  "/api/delete-rooms": "pages/api/delete-rooms.js"
+}

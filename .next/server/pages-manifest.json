@@ -1,1 +1,13 @@
-{"/_app":"pages/_app.js","/api/clear-members":"pages/api/clear-members.js","/_error":"pages/_error.js","/api/create-room":"pages/api/create-room.js","/api/delete-rooms":"pages/api/delete-rooms.js","/create-rooms":"pages/create-rooms.html","/delete-rooms":"pages/delete-rooms.html","/":"pages/index.html","/login":"pages/login.html","/_document":"pages/_document.js","/404":"pages/404.html"}
+{
+  "/": "pages/index.html",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/api/clear-members": "pages/api/clear-members.js",
+  "/api/create-room": "pages/api/create-room.js",
+  "/api/delete-rooms": "pages/api/delete-rooms.js",
+  "/create-rooms": "pages/create-rooms.html",
+  "/delete-rooms": "pages/delete-rooms.html",
+  "/login": "pages/login.html",
+  "/404": "pages/404.html"
+}

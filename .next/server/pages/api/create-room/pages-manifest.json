@@ -1,0 +1,3 @@
+{
+  "/api/create-room": "pages/api/create-room.js"
+}

@@ -1,1 +1,5 @@
-"use strict";(()=>{var e={};e.id=220,e.ids=[220],e.modules={361:e=>{e.exports=require("next/dist/compiled/next-server/pages.runtime.prod.js")},2015:e=>{e.exports=require("react")},8732:e=>{e.exports=require("react/jsx-runtime")},3873:e=>{e.exports=require("path")}};var r=require("../webpack-runtime.js");r.C(e);var s=e=>r(r.s=e),t=r.X(0,[781],()=>s(781));module.exports=t})();
+var R=require("../chunks/ssr/[turbopack]_runtime.js")("server/pages/_document.js")
+R.c("server/chunks/ssr/[root-of-the-server]__bc67aaac._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1f11c72e._.js")
+R.m(3590)
+module.exports=R.m(3590).exports
