@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///D:/Desenvolvimento/sala-estimativa/pages/_app.js"],"sourcesContent":["import '../styles/globals.css'; export default function App({Component,pageProps}){return <Component {...pageProps}/>}"],"names":[],"mappings":";;;;;;;AAA+C,SAAS,IAAI,EAAC,SAAS,EAAC,SAAS,EAAC;IAAE,qBAAO,qKAAC;QAAW,GAAG,SAAS;;;;;;AAAG"}}]
+}
