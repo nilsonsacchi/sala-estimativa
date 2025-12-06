@@ -904,6 +904,29 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
                     style: {
+                        marginBottom: "10px",
+                        cursor: "pointer"
+                    },
+                    onClick: ()=>clearAndGo("/sobre"),
+                    children: "🗑️ Sobre"
+                }, void 0, false, {
+                    fileName: "[project]/components/Sidebar.js",
+                    lineNumber: 117,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("hr", {
+                    style: {
+                        margin: "15px 0",
+                        border: "none",
+                        borderBottom: "1px solid #444"
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/components/Sidebar.js",
+                    lineNumber: 121,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
+                    style: {
                         marginTop: "20px",
                         cursor: "pointer",
                         padding: "10px",
@@ -917,7 +940,7 @@ function Sidebar({ user: userProp, onLeaveRoom }) {
                     children: "🚪 Sair"
                 }, void 0, false, {
                     fileName: "[project]/components/Sidebar.js",
-                    lineNumber: 118,
+                    lineNumber: 124,
                     columnNumber: 9
                 }, this)
             ]

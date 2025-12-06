@@ -61,7 +61,7 @@ export default function Sidebar({ user: userProp, onLeaveRoom }) {
 
       await tryRemoveParticipant();
     } finally {
-      router.push(path);
+      router.push(path).catch(err => console.error("Router erro:", err));
     }
   }
 
@@ -110,6 +110,12 @@ export default function Sidebar({ user: userProp, onLeaveRoom }) {
 
         <li style={{ marginBottom: "10px", cursor: "pointer" }} onClick={() => clearAndGo("/delete-rooms")}>
           🗑️ Apagar Salas
+        </li>
+
+        <hr style={{ margin: "15px 0", border: "none", borderBottom: "1px solid #444" }} />
+
+        <li style={{ marginBottom: "10px", cursor: "pointer" }} onClick={() => clearAndGo("/sobre")}>
+          ℹ️ Sobre
         </li>
 
         <hr style={{ margin: "15px 0", border: "none", borderBottom: "1px solid #444" }} />

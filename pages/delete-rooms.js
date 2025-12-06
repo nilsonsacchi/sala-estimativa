@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { getDB } from "../lib/firebaseClient";
 import { ref, onValue } from "firebase/database";
-import Sidebar from "../components/Sidebar";
 
 export default function DeleteRoomsPage() {
   const [rooms, setRooms] = useState({});
@@ -45,7 +44,6 @@ export default function DeleteRoomsPage() {
 
   return (
     <div style={{ display: "flex" }}>
-      <Sidebar />
 
       <div style={{ padding: 20, width: "100%" }}>
         <h1>Apagar Salas</h1>

@@ -4,5 +4,5 @@
   "/_document": "pages/_document.js",
   "/create-rooms": "pages/create-rooms.js",
   "/delete-rooms": "pages/delete-rooms.js",
-  "/login": "pages/login.js"
+  "/sobre": "pages/sobre.js"
 }
