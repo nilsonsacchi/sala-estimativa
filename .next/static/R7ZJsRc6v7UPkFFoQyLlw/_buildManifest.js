@@ -1,18 +1,18 @@
 self.__BUILD_MANIFEST = {
   "/": [
-    "static/chunks/2062fd12ab6b625b.js"
+    "static/chunks/a2a32ece263b008e.js"
   ],
   "/_error": [
-    "static/chunks/1c1743ba40e7806b.js"
+    "static/chunks/a30a2f029e09b1be.js"
   ],
   "/create-rooms": [
-    "static/chunks/6b2be8f806147e5f.js"
+    "static/chunks/a1b66ec88e63b01b.js"
   ],
   "/delete-rooms": [
-    "static/chunks/717be6e2ec647561.js"
+    "static/chunks/aa434bc011c1817c.js"
   ],
   "/login": [
-    "static/chunks/6ad67bf95dfbc34e.js"
+    "static/chunks/f5329d6f72f546c7.js"
   ],
   "__rewrites": {
     "afterFiles": [],
